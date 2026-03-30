@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShivaSamarth Tours & Travels</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+    body {background:#fff8f5; color:#333; scroll-behavior:smooth;}
+
+    /* Navbar */
+    nav {
+      background:#ff8c66; padding:15px 50px;
+      display:flex; justify-content:space-between; align-items:center;
+      position:sticky; top:0; z-index:1000;
+      box-shadow:0 4px 6px rgba(0,0,0,0.2);
+    }
+    .logo h1 {color:white; font-style:italic; font-size:26px; font-weight:bold;}
+    .menu {display:flex; gap:30px; align-items:center;}
+    .menu a {
+      text-decoration:none; font-size:18px; font-weight:600;
+      color:white; transition:0.3s;
+    }
+    .menu a:hover, .menu a.active {color:gold;}
+    .menu button {
+      padding:6px 15px; border:none; border-radius:20px;
+      background:white; color:#ff704d; font-weight:bold;
+      cursor:pointer; transition:0.3s;
+    }
+    .menu button:hover {background:gold; color:white;}
+
+    /* Hero */
+    .hero {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:80px 100px; background:linear-gradient(to right, #fff8f5, #ffe6db);
+      flex-wrap:wrap;
+    }
+    .hero-text {flex:1; padding-right:40px; min-width:280px;}
+    .hero-text h2 {font-size:42px; font-weight:bold; line-height:1.4;}
+    .hero-text h2 span {color:#ff704d; font-style:italic;}
+    .hero-text p {font-size:18px; margin:20px 0; color:#555;}
+    .btn {
+      display:inline-block; padding:12px 25px; background:#ff704d; color:white;
+      text-decoration:none; border-radius:30px; font-weight:bold; transition:0.3s;
+    }
+    .btn:hover {background:gold; color:#333;}
+
+    .hero-img img {width:100%; max-width:450px; border-radius:20px; box-shadow:0px 5px 15px rgba(0,0,0,0.2);}
+
+    /* Services */
+    #service {background:#ffe6e1; text-align:center; padding:60px 40px;}
+    .sheader h2 {color:#ff704d; font-size:36px; margin-bottom:15px;}
+    .sheader p {font-size:18px; color:#555; margin-bottom:40px;}
+    .services-container {
+      display:flex; justify-content:center; flex-wrap:wrap; gap:25px;
+    }
+    .service-card {
+      background:white; padding:20px; border-radius:15px;
+      box-shadow:0px 4px 12px rgba(0,0,0,0.1);
+      text-align:center; width:250px; transition:0.3s ease-in-out;
+    }
+    .service-card:hover {transform:translateY(-10px); border:2px solid #ff704d;}
+    .service-card img {
+      width:100%; height:160px; object-fit:cover; border-radius:12px;
+      margin-bottom:15px;
+    }
+
+#destination {
+    display: flex;
+    flex-direction: column;   /* 🔥 THIS FIXES YOUR ISSUE */
+    align-items: center;      /* center everything */
+}
+
+.destination-container {
+    display: flex;
+    flex-wrap: nowrap;        /* all in one line */
+    gap: 20px;
+    overflow-x: auto;         /* scroll if needed */
+    margin-top: 20px;
+}
+
+.destination-card {
+    min-width: 220px;
+    background: #f0f0f0;
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    text-align: center;
+    cursor: pointer;
+}
+
+.destination-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+    /* Booking Form */
+    .booking-form {
+      display:flex; flex-direction:column; gap:12px;
+      max-width:400px; margin:50px auto; background:#fff; padding:30px;
+      border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+    .booking-form input, .booking-form select, .booking-form button {
+      padding:10px; border:1px solid #ccc; border-radius:8px;
+    }
+    .booking-form button {
+      background:#ff704d; color:white; border:none; font-weight:bold; cursor:pointer;
+    }
+    .booking-form button:hover {background:#ff5722;}
+
+    /* Testimonials */
+    #testimonial {background:#e6f0ff; padding:60px 20px; text-align:center;}
+    #testimonial h2 {color:#ff704d; font-size:36px; margin-bottom:30px;}
+    .testimonials {display:flex; flex-wrap:wrap; justify-content:center; gap:25px;}
+    .test-card {
+      background:#fff; padding:25px; width:280px; border-radius:12px; 
+      box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:transform 0.3s;
+    }
+    .test-card:hover {transform:translateY(-8px);}
+    .test-card h3 {color:#ff704d;}
+
+    /* Footer */
+    footer {background:#222; color:#ddd; padding:40px 20px; text-align:center;}
+    .footer-container {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px; max-width:1100px; margin:auto;
+    }
+    .footer-box h3 {color:#ff7b54; margin-bottom:15px;}
+    .footer-box a {color:#bbb; text-decoration:none; display:block; margin-bottom:8px;}
+    .footer-box a:hover {color:#ff7b54;}
+    .footer-bottom {margin-top:20px; border-top:1px solid #444; padding-top:10px; font-size:13px;}
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo"><h1>ShivaSamarth</h1></div>
+    <div class="menu">
+      <a href="#service">Services</a>
+      <a href="#destination">Destinations</a>
+      <a href="#booking">Tours</a>
+      <a href="#testimonial">Testimonials</a>
+     <a href="/hotel">
+  <button>🏨 Hotel Booking</button>
+</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Discover the <span>divine journey</span><br>with ShivaSamarth Tours.</h2>
+      <p>Comfort, devotion, and memories—your spiritual trip starts here.</p>
+      <a href="#booking" class="btn">Book a Tour</a>
+    </div>
+    <div class="hero-img">
+      <img src="images/s.jpg" alt="Temple Image">
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="service">
+    <div class="sheader">
+      <h2>🛕 Our Services</h2>
+      <p>We provide complete comfort and spiritual satisfaction.</p>
+    </div>
+    <div class="services-container">
+      <div class="service-card"><img src="images/tours.jpg"><h3>Temple Tours</h3><p>Akkalkot, Pandharpur, Gangapur, Tuljapur & Solapur</p></div>
+      <div class="service-card"><img src="images/lodge.jpg"><h3>Hotel Stay</h3><p>AC / Non-AC rooms near temples</p></div>
+      <div class="service-card"><img src="images/car.jpg"><h3>Travel Comfort</h3><p>AC / Non-AC vehicles with professional drivers</p></div>
+      <div class="service-card"><img src="images/onlinepay.jpg"><h3>Online Booking</h3><p>Easy and secure reservations</p></div>
+    </div>
+  </section>
+
+  <section id="destination">
+
+<h2>🌍 Popular Destinations</h2>
+
+<div class="destination-container">
+
+    <div class="destination-card" onclick="window.location.href='/destination/kerala'">
+        <img src="images/kerala.jpeg">
+        <h4>Kerala</h4>
+    </div>
+
+    <div class="destination-card" onclick="window.location.href='/destination/goa'">
+        <img src="images/goa.jpeg">
+        <h4>Goa</h4>
+    </div>
+
+    <div class="destination-card" onclick="window.location.href='/destination/alibaug'">
+        <img src="images/alibag.jpeg">
+        <h4>Alibaug</h4>
+    </div>
+
+    <div class="destination-card" onclick="window.location.href='/destination/balaji'">
+        <img src="images/balaji.jpeg">
+        <h4>Balaji</h4>
+    </div>
+
+    <div class="destination-card" onclick="window.location.href='/destination/akkalkot'">
+        <img src="images/dakkakot.jpg">
+        <h4>Akkalkot</h4>
+    </div>
+
+</div>
+
+</section>
+
+  <!-- Tour Booking -->
+  <section id="booking">
+    <div class="sheader" style="text-align:center;">
+      <h1 style="color:#ff704d;">📅 Tour Booking</h1>
+      <p>Book your temple visit — check availability live!</p>
+    </div>
+
+    <form class="booking-form" action="/book" method="POST">
+      <label>Name:</label>
+      <input type="text" name="name" required>
+
+      <label>Email:</label>
+      <input type="email" name="email" required>
+
+      <label>Phone:</label>
+      <input type="tel" name="phone" required>
+
+      <label>Destination:</label>
+      <select id="destination" name="destination" onchange="checkAvailability()" required>
+        <option value="">--Select Destination--</option>
+        <option value="Akkalkot">Akkalkot</option>
+        <option value="Solapur">Solapur</option>
+        <option value="Gangapur">Gangapur</option>
+        <option value="Tuljapur">Tuljapur</option>
+        <option value="Pandharpur">Pandharpur</option>
+      </select>
+
+      <label>Number of Travelers:</label>
+      <input type="number" name="travelers" id="travelers" min="1" value="1" required>
+
+      <label>Travel Date:</label>
+      <input type="date" id="travel_date" name="travel_date" onchange="checkAvailability()" required>
+
+      <div id="availability-message" style="text-align:center;font-weight:bold;"></div>
+
+      <button id="submitBtn" type="submit">Book Tour</button>
+    </form>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonial">
+    <h2>💬 What Our Travelers Say</h2>
+    <div class="testimonials">
+      <div class="test-card"><h3>Pradnya Kadam</h3><p>"Peaceful journey and great hospitality!"</p><div style="color:gold;">⭐⭐⭐⭐⭐</div></div>
+      <div class="test-card"><h3>Sneha Deshmukh</h3><p>"Comfortable travel, safe, and divine experience."</p><div style="color:gold;">⭐⭐⭐⭐⭐</div></div>
+      <div class="test-card"><h3>Nisha More</h3><p>"Loved the arrangements for Tuljapur trip!"</p><div style="color:gold;">⭐⭐⭐⭐⭐</div></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-box"><h3>About Us</h3><p>We organize spiritual journeys with comfort and devotion.</p></div>
+      <div class="footer-box"><h3>Quick Links</h3><a href="#">Home</a><a href="#destination">Destinations</a><a href="#booking">Book Tour</a><a href="/hotel">Hotel Booking</a></div>
+      <div class="footer-box"><h3>Contact Info</h3><p>Email: kadamsamarth094@gmail.com</p><p>Phone: +91 9307408199</p><p>Akkalkot, Maharashtra</p></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 ShivaSamarth Tours & Travels | All Rights Reserved</p></div>
+  </footer>
+
+  <script>
+    async function checkAvailability() {
+      const dest = document.getElementById('destination').value;
+      const date = document.getElementById('travel_date').value;
+      const msg = document.getElementById('availability-message');
+      const btn = document.getElementById('submitBtn');
+
+      if (!dest || !date) { msg.innerHTML=''; btn.disabled=false; return; }
+
+      try {
+        const res = await fetch(`/tourcheck?dest=${encodeURIComponent(dest)}&date=${encodeURIComponent(date)}`);
+        const data = await res.json();
+
+        if (data.available && data.slots_left > 0) {
+          msg.style.color = 'green';
+          msg.innerHTML = `✅ Available (${data.slots_left} seats left)`;
+          btn.disabled = false;
+        } else {
+          msg.style.color = 'red';
+          msg.innerHTML = '❌ Tour full for today. Please choose another day.';
+          btn.disabled = true;
+        }
+      } catch (err) {
+        msg.style.color = 'gray';
+        msg.innerHTML = '⚠️ Unable to check availability.';
+        btn.disabled = false;
+      }
+    }
+
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("travel_date").setAttribute("min", today);
+  </script>
+</body>
+</html>
