@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Booking | ShivaSamarth Tours</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background:#fff8f5; color:#333; }
+
+    header {
+      background:#ff704d;
+      color:white;
+      padding:15px 40px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    }
+    header h1 { font-style:italic; font-size:26px; }
+    header a {
+      color:white;
+      text-decoration:none;
+      background:white;
+      color:#ff704d;
+      padding:6px 14px;
+      border-radius:20px;
+      font-weight:bold;
+      transition:0.3s;
+    }
+    header a:hover { background:gold; color:white; }
+
+    h2 {
+      text-align:center;
+      color:#ff704d;
+      margin:40px 0 20px;
+      font-size:32px;
+    }
+
+    .hotel-container {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:30px;
+      padding:20px;
+    }
+
+    .hotel-card {
+      background:white;
+      width:300px;
+      border-radius:15px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      overflow:hidden;
+      transition:0.3s;
+    }
+    .hotel-card:hover { transform:translateY(-6px); }
+    .hotel-card img {
+      width:100%;
+      height:180px;
+      object-fit:cover;
+    }
+    .hotel-info { padding:15px; text-align:center; }
+    .hotel-info h3 { color:#ff704d; margin-bottom:8px; }
+    .hotel-info p { font-size:14px; color:#555; margin-bottom:10px; }
+    .hotel-info .status { font-weight:bold; }
+
+    /* Booking form */
+    .booking-box {
+      max-width:450px;
+      margin:40px auto;
+      background:white;
+      border-radius:15px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      padding:25px;
+    }
+    label { display:block; margin-top:10px; font-weight:600; color:#444; }
+    input, select, button {
+      width:100%;
+      padding:10px;
+      border:1px solid #ccc;
+      border-radius:8px;
+      margin-top:6px;
+    }
+    button {
+      background:#ff704d;
+      color:white;
+      font-weight:bold;
+      border:none;
+      margin-top:15px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    button:hover { background:gold; color:#333; }
+
+    #availabilityMsg {
+      text-align:center;
+      font-weight:bold;
+      margin-top:10px;
+    }
+
+    footer {
+      background:#222;
+      color:#bbb;
+      text-align:center;
+      padding:20px;
+      margin-top:40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ShivaSamarth Tours & Travels</h1>
+  <a href="/">← Back Home</a>
+</header>
+
+<h2>🏨 Our Hotels</h2>
+
+<div class="hotel-container">
+  <div class="hotel-card" data-hotel="Hotel Sunrise">
+    <img src="images/sunrise.jpeg" alt="Hotel Sunrise">
+    <div class="hotel-info">
+      <h3>Hotel Sunrise</h3>
+      <p>Near temple • AC Rooms • Free breakfast</p>
+      <p class="status" id="status-Hotel-Sunrise">Checking...</p>
+    </div>
+  </div>
+
+  <div class="hotel-card" data-hotel="Hotel Galaxy">
+    <img src="images/galaxy.jpeg" alt="Hotel Galaxy">
+    <div class="hotel-info">
+      <h3>Hotel Galaxy</h3>
+      <p>Budget-friendly • Family rooms • 24x7 service</p>
+      <p class="status" id="status-Hotel-Galaxy">Checking...</p>
+    </div>
+  </div>
+
+  <div class="hotel-card" data-hotel="Hotel Paradise">
+    <img src="images/paradise.jpeg" alt="Hotel Paradise">
+    <div class="hotel-info">
+      <h3>Hotel Paradise</h3>
+      <p>Luxury rooms • Rooftop view • WiFi included</p>
+      <p class="status" id="status-Hotel-Paradise">Checking...</p>
+    </div>
+  </div>
+</div>
+
+<div class="booking-box">
+  <h3 style="text-align:center;color:#ff704d;">🛏️ Book Your Stay</h3>
+  <form method="POST" action="/hotelbook" id="bookForm">
+    <label>Name:</label>
+    <input name="name" required>
+
+    <label>Email:</label>
+    <input name="email" type="email" required>
+
+    <label>Phone:</label>
+    <input name="phone" required>
+
+    <label>Hotel:</label>
+    <select id="hotelSelect" name="hotel_name" required>
+      <option value="">-- Select Hotel --</option>
+      <option value="Hotel Sunrise">Hotel Sunrise</option>
+      <option value="Hotel Galaxy">Hotel Galaxy</option>
+      <option value="Hotel Paradise">Hotel Paradise</option>
+    </select>
+
+    <label>Check-in Date:</label>
+    <input id="checkin" name="checkin" type="date" required>
+
+    <label>Check-out Date:</label>
+    <input id="checkout" name="checkout" type="date" required>
+
+    <label>Guests:</label>
+    <input name="guests" type="number" min="1" value="1" required>
+
+    <div id="availabilityMsg"></div>
+
+    <button id="submitBtn">Book Now</button>
+  </form>
+</div>
+
+<footer>
+  © 2025 ShivaSamarth Tours & Travels | All Rights Reserved
+</footer>
+
+<script>
+  async function checkAvailability() {
+    const hotel = document.getElementById('hotelSelect').value;
+    const date = document.getElementById('checkin').value;
+    const div = document.getElementById('availabilityMsg');
+    const btn = document.getElementById('submitBtn');
+    if (!hotel || !date) { div.innerHTML=''; btn.disabled=false; return; }
+
+    const res = await fetch(`/availability?hotel=${encodeURIComponent(hotel)}&date=${date}`);
+    const data = await res.json();
+
+    if (data.available) {
+      div.style.color = 'green';
+      div.innerHTML = `✅ Rooms Left: <b>${data.rooms_left}</b>`;
+      btn.disabled = false;
+    } else {
+      div.style.color = 'red';
+      let alt = '';
+      if (data.alternatives && data.alternatives.length)
+        alt = '<br>Try: ' + data.alternatives.map(a => a.hotel_name + ' (' + a.rooms_left + ')').join(', ');
+      div.innerHTML = '❌ Fully Booked.' + alt;
+      btn.disabled = true;
+    }
+
+    // Update card statuses dynamically
+    document.querySelectorAll('.hotel-card').forEach(card => {
+      const hname = card.dataset.hotel;
+      const s = document.getElementById('status-' + hname.replace(/ /g, '-'));
+      if (hname === hotel) {
+        s.innerHTML = data.available ? `✅ Rooms Left: <b>${data.rooms_left}</b>` : `❌ Full`;
+        s.style.color = data.available ? 'green' : 'red';
+      }
+    });
+  }
+
+  document.getElementById('hotelSelect').addEventListener('change', checkAvailability);
+  document.getElementById('checkin').addEventListener('change', checkAvailability);
+</script>
+
+</body>
+</html>
